@@ -23,22 +23,22 @@ document.addEventListener('DOMContentLoaded', () => {
             resultDiv.innerHTML = "<p>Please select at least one symptom.</p>";
         } else {
             const potentialDiseases = analyzeSymptoms(selectedSymptoms);
-            resultDiv.innerHTML = `<p>Based on the selected symptoms, you may have: ${potentialDiseases.join(', ')}</p>`;
+            resultDiv.innerHTML = `<p>예상되는 질병: ${potentialDiseases.join(', ')}</p>`;
         }
         resultDiv.style.display = 'block';
     });
 
     function analyzeSymptoms(symptoms) {
         const diseaseDatabase = {
-            'flu': ['fever', 'cough', 'fatigue', 'sore throat', 'runny nose'],
-            'cold': ['cough', 'runny nose', 'sore throat'],
-            'migraine': ['headache', 'nausea'],
-            'covid-19': ['fever', 'cough', 'fatigue', 'shortness of breath', 'loss of taste or smell'],
-            'stomach flu': ['nausea', 'vomiting', 'diarrhea'],
-            'allergy': ['runny nose', 'sore throat', 'rash'],
-            'asthma': ['shortness of breath', 'cough', 'chest pain'],
-            'bronchitis': ['cough', 'fatigue', 'shortness of breath', 'chest pain'],
-            'food poisoning': ['nausea', 'vomiting', 'diarrhea'],
+            '독감': ['fever', 'cough', 'fatigue', 'sore throat', 'runny nose'],
+            '감기': ['cough', 'runny nose', 'sore throat'],
+            '편두통': ['headache', 'nausea'],
+            '코로나-19': ['fever', 'cough', 'fatigue', 'shortness of breath', 'loss of taste or smell'],
+            '위장 독감': ['nausea', 'vomiting', 'diarrhea'],
+            '알레르기': ['runny nose', 'sore throat', 'rash'],
+            '천식': ['shortness of breath', 'cough', 'chest pain'],
+            '기관지염': ['cough', 'fatigue', 'shortness of breath', 'chest pain'],
+            '식중독': ['nausea', 'vomiting', 'diarrhea'],
             // 추가 질병 데이터
         };
 
@@ -57,3 +57,5 @@ document.addEventListener('DOMContentLoaded', () => {
         return matches;
     }
 });
+
+
