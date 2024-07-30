@@ -44,14 +44,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let matches = [];
 
+        // for (let disease in diseaseDatabase) {
+        //     const diseaseSymptoms = diseaseDatabase[disease];
+        //     const matchCount = symptoms.filter(symptom => diseaseSymptoms.includes(symptom)).length;
+
+        //     // 적어도 절반 이상의 증상이 일치하는 경우 질병으로 간주
+        //     if (matchCount >= Math.ceil(diseaseSymptoms.length / 2)) {
+        //         matches.push(disease);
+        //     }
         for (let disease in diseaseDatabase) {
             const diseaseSymptoms = diseaseDatabase[disease];
-            const matchCount = symptoms.filter(symptom => diseaseSymptoms.includes(symptom)).length;
-
-            // 적어도 절반 이상의 증상이 일치하는 경우 질병으로 간주
-            if (matchCount >= Math.ceil(diseaseSymptoms.length / 2)) {
+            if (symptoms.some(symptom => diseaseSymptoms.includes(symptom))) {
                 matches.push(disease);
             }
+
         }
 
         return matches;
