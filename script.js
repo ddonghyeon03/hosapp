@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     analyzeButton.addEventListener('click', () => {
         if (selectedSymptoms.length === 0) {
-            resultDiv.innerHTML = "<p>Please select at least one symptom.</p>";
+            resultDiv.innerHTML = "<p>증상을 선택해주세요.</p>";
         } else {
             const potentialDiseases = analyzeSymptoms(selectedSymptoms);
             resultDiv.innerHTML = `<p>예상되는 질병: ${potentialDiseases.join(', ')}</p>`;
