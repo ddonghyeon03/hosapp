@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
             resultDiv.innerHTML = "<p>증상을 선택해주세요.</p>";
         } else {
             const potentialDiseases = analyzeSymptoms(selectedSymptoms);
-            resultDiv.innerHTML = `<p>예상되는 질병: ${potentialDiseases.join(', ')}</p>`;
+            displayDiseases(potentialDiseases);
         }
         resultDiv.style.display = 'block';
     });
@@ -44,24 +44,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let matches = [];
 
-        // for (let disease in diseaseDatabase) {
-        //     const diseaseSymptoms = diseaseDatabase[disease];
-        //     const matchCount = symptoms.filter(symptom => diseaseSymptoms.includes(symptom)).length;
-
-        //     // 적어도 절반 이상의 증상이 일치하는 경우 질병으로 간주
-        //     if (matchCount >= Math.ceil(diseaseSymptoms.length / 2)) {
-        //         matches.push(disease);
-        //     }
         for (let disease in diseaseDatabase) {
             const diseaseSymptoms = diseaseDatabase[disease];
             if (symptoms.some(symptom => diseaseSymptoms.includes(symptom))) {
                 matches.push(disease);
             }
-
         }
 
         return matches;
     }
+
+    function displayDiseases(diseases) {
+        let diseaseList = '<p>예상되는 질병:</p><ul>';
+        diseases.forEach(disease => {
+            diseaseList += `<li class="disease-item" data-disease="${disease}">${disease}</li>`;
+        });
+        diseaseList += '</ul>';
+        resultDiv.innerHTML = diseaseList;
+
+        const diseaseItems = document.querySelectorAll('.disease-item');
+        diseaseItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const disease = item.getAttribute('data-disease');
+                displayTreatment(disease);
+            });
+        });
+    }
+
+    function displayTreatment(disease) {
+        const treatmentDatabase = {
+            '독감': '휴식과 충분한 수분 섭취가 중요합니다. 필요시 해열제를 복용하세요.',
+            '감기': '따뜻한 차와 꿀, 목을 보호하고 충분한 휴식을 취하세요.',
+            '편두통': '진통제 복용과 함께 어두운 방에서 휴식을 취하세요.',
+            '코로나-19': '자가 격리 및 의료진의 지시를 따르세요. 증상 완화에 중점을 둡니다.',
+            '위장 독감': '수분 섭취와 식사 조절, 충분한 휴식이 필요합니다.',
+            '알레르기': '알레르기 유발 물질을 피하고 항히스타민제를 복용하세요.',
+            '천식': '처방된 흡입기를 사용하고, 천식을 유발하는 환경을 피하세요.',
+            '기관지염': '충분한 휴식과 수분 섭취, 기침약 복용을 고려하세요.',
+            '식중독': '수분 섭취를 늘리고 음식 섭취를 조절하며 필요시 의사의 진료를 받으세요.',
+            // 추가 치료법 데이터
+        };
+
+        const treatment = treatmentDatabase[disease] || '해당 질병에 대한 치료법이 없습니다.';
+        resultDiv.innerHTML = `<p><strong>${disease} 치료법:</strong> ${treatment}</p>`;
+    }
 });
-
-
